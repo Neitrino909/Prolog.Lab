@@ -10,6 +10,8 @@ man(odo).
 man(olo).
 man(sancho).
 man(falko).
+man(ponto).
+man(togo).
 
 woman(laura).
 woman(belba).
@@ -18,6 +20,8 @@ woman(beladonna).
 woman(kamilia).
 woman(chika).
 woman(poppi).
+woman(mimoza).
+woman(lili).
 
 parent(mango,bango).
 parent(mango,belba).
@@ -30,6 +34,20 @@ parent(laura,belba).
 parent(laura,longo).
 parent(laura,linda).
 parent(laura,bingo).
+
+parent(ponto,beladonna).
+parent(ponto,bodo).
+parent(ponto,rudigar).
+
+parent(mimoza,beladonna).
+parent(mimoza,bodo).
+parent(mimoza,rudigar).
+
+parent(togo,kamelia).
+parent(togo,chika).
+
+parent(lili,kamelia).
+parent(lili,chika).
 
 parent(bango,bilbo).
 
@@ -58,17 +76,20 @@ all_woman(X):-woman(X),write(X),nl,fail.
 
 children(X):-parent(X,Y),write(Y),nl ,fail.
 
-mother(X,Y):-woman(X),parent(X,Y),write("ßâëÿåòñÿ"),nl ,fail.
+mother(X,Y):-woman(X),parent(X,Y),write("ÃŸÃ¢Ã«Ã¿Ã¥Ã²Ã±Ã¿"),nl ,fail.
 mother(X):-woman(Y),parent(Y,X),write(Y),nl ,fail.
 
-father(X,Y):-man(X),parent(X,Y),write("ßâëÿåòñÿ"),nl ,fail.
+father(X,Y):-man(X),parent(X,Y),write("ÃŸÃ¢Ã«Ã¿Ã¥Ã²Ã±Ã¿"),nl ,fail.
 father(X):-man(Y),parent(Y,X),write(Y),nl ,fail.
 
-brother(X,Y):-man(X),parent(Z,X),parent(Z,Y),write("ßâëÿåòñÿ"),break,nl,fail.
+brother(X,Y):-man(X),parent(Z,X),parent(Z,Y),write("ÃŸÃ¢Ã«Ã¿Ã¥Ã²Ã±Ã¿"),break,nl,fail.
 brothers(X):-man(Y),parent(Z,X),parent(Z,Y),dif(X,Y),write(Y),nl,fail.
 
-wife(X,Y):-woman(X),parent(X,Z),parent(Y,Z),write("ßâëÿåòñÿ"),break,nl,fail.
+wife(X,Y):-woman(X),parent(X,Z),parent(Y,Z),write("ÃŸÃ¢Ã«Ã¿Ã¥Ã²Ã±Ã¿"),break,nl,fail.
 wife(X):-woman(Y),parent(X,Z),parent(Y,Z),write(Y),break,nl,fail.
 
-b_s(X,Y):-parent(Z,X),parent(Z,Y),write("ßâëÿşòñÿ"),break,nl,fail.
+b_s(X,Y):-parent(Z,X),parent(Z,Y),write("ÃŸÃ¢Ã«Ã¿Ã¾Ã²Ã±Ã¿"),break,nl,fail.
 b_s(X):-parent(Z,X),!,parent(Z,Y),!,dif(X,Y),write(Y),nl,fail.
+
+grand_pa(X,Y):-man(X),parent(X,Z),parent(Z,Y),write("Ğ¯Ğ²Ğ»ÑĞµÑ‚ÑÑ"),nl,fail.
+grand_pas(X):-man(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
