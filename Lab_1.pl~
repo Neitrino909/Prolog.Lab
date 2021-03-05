@@ -103,3 +103,6 @@ grand_ma_and_son(X,Y):-(parent(X,Z),parent(Z,Y),woman(X))\=(parent(Z,X),parent(Z
 
 uncle(X,Y):-parent(R,H),parent(H,Y),parent(R,X),X\=H,man(X),man(R).
 uncles(X):-uncle(Y,X),write(Y),write(", "),fail.
+
+nephew(X,Y):-parent(R,H),parent(H,X),parent(R,Y),Y\=H ,man(Y),man(X),man(R).
+nephew(X):-nephew(Y,X),write(Y),write(", "),fail.
