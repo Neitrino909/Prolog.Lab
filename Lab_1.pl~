@@ -97,4 +97,4 @@ grand_pas(X):-man(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
 grand_ma(X,Y):-woman(X),parent(X,Z),parent(Z,Y),write("Является"),nl,fail.
 grand_mas(X):-woman(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
 
-grand_pa_and_son(X,Y):-man(X),man(Y),parent(X,Z),parent(Z,Y),write("Являются"),nl,fail.
+grand_ma_and_son(X,Y):-(parent(X,Z),parent(Z,Y))\=(parent(Z,X),parent(Z,Y)),woman(X)\= man(Y),write("Являются"),nl,fail.
