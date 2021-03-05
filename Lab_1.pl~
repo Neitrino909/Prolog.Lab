@@ -93,3 +93,6 @@ b_s(X):-parent(Z,X),!,parent(Z,Y),!,dif(X,Y),write(Y),nl,fail.
 
 grand_pa(X,Y):-man(X),parent(X,Z),parent(Z,Y),write("Является"),nl,fail.
 grand_pas(X):-man(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
+
+grand_ma(X,Y):-woman(X),parent(X,Z),parent(Z,Y),write("Является"),nl,fail.
+grand_mas(X):-woman(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
