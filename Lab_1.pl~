@@ -89,7 +89,7 @@ wife(X,Y):-woman(X),parent(X,Z),parent(Y,Z),write("ßâëÿåòñÿ"),break,nl,f
 wife(X):-woman(Y),parent(X,Z),parent(Y,Z),write(Y),break,nl,fail.
 
 b_s(X,Y):-parent(Z,X),parent(Z,Y),write("ßâëÿþòñÿ"),break,nl,fail.
-b_s(X):-parent(Z,X),!,parent(Z,Y),!,dif(X,Y),write(Y),nl,fail.
+b_s(X):-parent(Z,X),parent(Z,Y),woman(Z),not(X=Y),write(Y),nl,fail.
 
 grand_pa(X,Y):-man(X),parent(X,Z),parent(Z,Y),write("Является"),nl,fail.
 grand_pas(X):-man(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
