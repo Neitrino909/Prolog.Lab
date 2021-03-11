@@ -99,7 +99,7 @@ grand_mas(X):-woman(Y),parent(Z,X),parent(Y,Z),write(Y),nl,fail.
 
 grand_pa_and_son(X,Y):-(parent(X,Z),parent(Z,Y),man(X))\=(parent(Z,X),parent(Z,Y)),man(X),man(Y),write("Являются"),nl,fail.
 
-grand_ma_and_son(X,Y):-(parent(X,Z),parent(Z,Y),woman(X))\=(parent(Z,X),parent(Z,Y),man(X)),woman(X)\= man(Y),write("Являются"),nl,fail.
+grand_ma_and_son(X,Y):-parent(Z,Y),parent(X,Z),mother(X,Z),man(Y);parent(Z,X),mother(Y,Z),man(X).
 
 uncle(X,Y):-parent(R,H),parent(H,Y),parent(R,X),X\=H,man(X),man(R).
 uncles(X):-uncle(Y,X),write(Y),write(", "),fail.
