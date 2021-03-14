@@ -43,10 +43,10 @@ parent(mimoza,beladonna).
 parent(mimoza,bodo).
 parent(mimoza,rudigar).
 
-parent(togo,kamelia).
+parent(togo,kamilia).
 parent(togo,chika).
 
-parent(lili,kamelia).
+parent(lili,kamilia).
 parent(lili,chika).
 
 parent(bango,bilbo).
