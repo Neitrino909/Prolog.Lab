@@ -177,7 +177,7 @@ pr:-question1(X1),
     question3(X3),
     question4(X4),
     question5(X5),
-    question6(X6)
+    question6(X6),
 
     genre(X,X1),
     continuation(X,X2),
