@@ -4,3 +4,6 @@ max(_,Y,Y).
 max(X,Y,Z,X):-X>=Y,X>=Z,!.
 max(_,Y,Z,Y):-Y>=Z,!.
 max(_,_,Z,Z):-!.
+
+fact_up(0,1):-!.
+fact_up(X,Y):-X1 is X-1,fact(X1,Y1),Y is X*Y1.
