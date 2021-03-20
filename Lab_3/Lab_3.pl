@@ -37,3 +37,8 @@ sum_num_down(X,S):-sum_num_d(X,0,S).
 %Exercise 9
 mult_num_up(0,1):-!.
 mult_num_up(X,Y):-X1 is X div 10, mult_num_up(X1,Y1), Y is Y1 * (X mod 10).
+
+%Exercise 10
+mult_num_d(0,M,M):-!.
+mult_num_d(X,VS,M):-X1 is X div 10, VS1 is VS * (X mod 10), mult_num_d(X1,VS1,M).
+mult_num_down(X,M):-mult_num_d(X,1,M).
