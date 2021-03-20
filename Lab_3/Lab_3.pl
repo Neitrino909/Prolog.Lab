@@ -14,3 +14,7 @@ fact_down(X,Y):-fact_d(X,Y,1,1).
 
 fib_up(2,1):-!.
 fib_up(X,Y):-X1 is X-1, fibUp(X1,Y1), Y is Y+Y1.
+
+fib_d(2,_,NextX,NextX):-!.
+fib_d(N,LastX,NextX,X):-N1 is N-1, NextX1 is LastX+NextX, fibD(N1,NextX,NextX1,X).
+fib_down(N,X):-fibD(N,1,1,X).
