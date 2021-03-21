@@ -52,3 +52,8 @@ read_min_list(N):-
 % Exercise 9
 el_in_list(X,[X,_]):-!.
 el_in_list(X,[_|T]):-el_in_list(X,T).
+
+% Exercise 10
+rev([],X,X):-!.
+rev([H|T],VSL,X):-rev(T,[H|VSL],X).
+reverse(L,X):-rev(L,[],X).
