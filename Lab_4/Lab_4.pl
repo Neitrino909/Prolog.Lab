@@ -23,3 +23,10 @@ sum_list_up([H|List],Sum):-sum_list_up(List,SumNew),Sum is SumNew + H.
 % Exercise 4.1
 list_el_numb([H|_],H,0):-!.
 list_el_numb([_|List],Elem,Numb):-list_el_numb(List,Elem,NewNumb),Numb is NewNumb+1.
+
+% Exercise 4.2
+read__list_el_numb(N):-
+    write("List: "),read_list(N,List),nl,
+    write("Element: "),read(Elem),nl,
+    write("Resul: "),list_el_numb(List,Elem,X),
+    write(X),nl,false.
