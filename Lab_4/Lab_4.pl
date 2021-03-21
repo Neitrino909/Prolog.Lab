@@ -65,3 +65,8 @@ order([HS|Sublist],[HL|List]):-p(Sublist,List),HS =:= HL.
 % Exercise 12
 del_by_num([_|T],0,T):-!.
 del_by_num([H|T],N,[H|T1]):-N1 is N-1,del_by_num(T,N1,T1).
+
+% Exercise 13
+del_repeat([],_,[]):-!.
+del_repeat([H|T],El,[H|T1]):-H=\=El,del_repeat(T,El,T1),!.
+del_repeat([_|T],El,T1):-del_repeat(T,El,T1).
