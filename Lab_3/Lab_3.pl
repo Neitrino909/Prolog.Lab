@@ -65,3 +65,10 @@ nod(A,B,D) :- C is B-A, nod(A,C,D).
 prim_n(2,_):-!.
 prim_n(VSX,X):-NewVSX is VSX-1,prim_n(NewVSX,X),X mod NewVSX =\= 0.
 prime_number(X):-prim_n(X,X),!.
+
+%Exercise 12.3
+div_num(_,0,0):-!.
+div_num(X,VSX,N):-
+    X mod VSX =:= 0, NewVSX is VSX-1,div_num(X,NewVSX,NewN),N is NewN + 1;
+    X mod VSX =\= 0, NewVSX is VSX-1,div_num(X,NewVSX,NewN), N is NewN.
+div_number(X,N):-div_num(X,X,N),!.
