@@ -56,7 +56,12 @@ max_num_not_3_down(X,Max,N):-X1 is X div 10, N1 is X mod 10, not3(N1,N2),
     max(Max,N2,Max1),max_num_not_3_down(X1,Max1,N),!.
 max_num_not_3_down(X,N):-max_num_not_3_down(X,0,N).
 
-%Exercise 12
+%Exercise 12.1
 nod(A,A,A) :- !.
 nod(A,B,D) :- A>B, !, C is A-B, nod(C,B,D).
 nod(A,B,D) :- C is B-A, nod(A,C,D).
+
+%Exercise 12.2
+prim_n(2,_):-!.
+prim_n(VSX,X):-NewVSX is VSX-1,prim_n(NewVSX,X),X mod NewVSX =\= 0.
+prime_number(X):-prim_n(X,X),!.
