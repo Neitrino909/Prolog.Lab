@@ -49,3 +49,9 @@ not3(_,0):-!.
 max_num_not_3_up(0,0):-!.
 max_num_not_3_up(X,N):-X1 is X div 10,max_num_not_3_up(X1,N1),!,
     N2 is X mod 10, not3(N2,N3), max(N1,N3,N),!.
+
+%Exercise 11.2
+max_num_not_3_down(0,Max,Max):-!.
+max_num_not_3_down(X,Max,N):-X1 is X div 10, N1 is X mod 10, not3(N1,N2),
+    max(Max,N2,Max1),max_num_not_3_down(X1,Max1,N),!.
+max_num_not_3_down(X,N):-max_num_not_3_down(X,0,N).
