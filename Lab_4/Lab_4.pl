@@ -48,3 +48,7 @@ read_min_list(N):-
     write("List: "),read_list(N,List),nl,
     write("Result: "),min_list_up(List,X),
     write(X),nl,false.
+
+% Exercise 9
+el_in_list(X,[X,_]):-!.
+el_in_list(X,[_|T]):-el_in_list(X,T).
