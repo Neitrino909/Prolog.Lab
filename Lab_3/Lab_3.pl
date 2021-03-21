@@ -42,3 +42,10 @@ mult_num_up(X,Y):-X1 is X div 10, mult_num_up(X1,Y1), Y is Y1 * (X mod 10).
 mult_num_d(0,M,M):-!.
 mult_num_d(X,VS,M):-X1 is X div 10, VS1 is VS * (X mod 10), mult_num_d(X1,VS1,M).
 mult_num_down(X,M):-mult_num_d(X,1,M).
+
+%Exercise 11.1
+not3(X,X):- X mod 3 =\= 0,!.
+not3(_,0):-!.
+max_num_not_3_up(0,0):-!.
+max_num_not_3_up(X,N):-X1 is X div 10,max_num_not_3_up(X1,N1),!,
+    N2 is X mod 10, not3(N2,N3), max(N1,N3,N),!.
