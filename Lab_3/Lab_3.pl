@@ -55,3 +55,8 @@ max_num_not_3_down(0,Max,Max):-!.
 max_num_not_3_down(X,Max,N):-X1 is X div 10, N1 is X mod 10, not3(N1,N2),
     max(Max,N2,Max1),max_num_not_3_down(X1,Max1,N),!.
 max_num_not_3_down(X,N):-max_num_not_3_down(X,0,N).
+
+%Exercise 12
+nod(A,A,A) :- !.
+nod(A,B,D) :- A>B, !, C is A-B, nod(C,B,D).
+nod(A,B,D) :- C is B-A, nod(A,C,D).
