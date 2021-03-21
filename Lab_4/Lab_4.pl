@@ -42,3 +42,9 @@ read_list_numb_el(N):-
 min_list_d([],Min,Min):-!.
 min_list_d([H|L],VSMin,Min):-min(VSMin,H,NewVSMin),min_list_d(L,NewVSMin,Min).
 min_list_down(List,Min):-min_list_d(List,9999,Min).
+
+% Exercise 8
+read_min_list(N):-
+    write("List: "),read_list(N,List),nl,
+    write("Result: "),min_list_up(List,X),
+    write(X),nl,false.
