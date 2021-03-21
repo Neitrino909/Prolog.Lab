@@ -30,3 +30,10 @@ read__list_el_numb(N):-
     write("Element: "),read(Elem),nl,
     write("Resul: "),list_el_numb(List,Elem,X),
     write(X),nl,false.
+
+% Exercise 5
+read_list_numb_el(N):-
+    write("List: "),read_list(N,List),nl,
+    write("Element: "),read(Numb),nl,
+    write("Result: "),list_el_numb(List,X,Numb),
+    write(X),nl,false.
