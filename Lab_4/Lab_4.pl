@@ -61,3 +61,7 @@ reverse(L,X):-rev(L,[],X).
 % Exercise 11
 order([],[]):-!.
 order([HS|Sublist],[HL|List]):-p(Sublist,List),HS =:= HL.
+
+% Exercise 12
+del_by_num([_|T],0,T):-!.
+del_by_num([H|T],N,[H|T1]):-N1 is N-1,del_by_num(T,N1,T1).
