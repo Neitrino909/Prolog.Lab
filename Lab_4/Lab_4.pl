@@ -57,3 +57,7 @@ el_in_list(X,[_|T]):-el_in_list(X,T).
 rev([],X,X):-!.
 rev([H|T],VSL,X):-rev(T,[H|VSL],X).
 reverse(L,X):-rev(L,[],X).
+
+% Exercise 11
+order([],[]):-!.
+order([HS|Sublist],[HL|List]):-p(Sublist,List),HS =:= HL.
