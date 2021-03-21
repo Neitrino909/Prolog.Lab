@@ -15,3 +15,8 @@ read_sum_write_list(N):-
     read_list(N,L),
     sum_list_down(L,Sum),
     nl, write("Sum = "),write(Sum),nl,fail.
+    
+% Exercise 3
+sum_list_up([],0):-!.
+sum_list_up([H|List],Sum):-sum_list_up(List,SumNew),Sum is SumNew + H.
+
