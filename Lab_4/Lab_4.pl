@@ -80,3 +80,10 @@ unique_num([]):-!.
 % Exercise 15
 del_rep([],[]):-!.
 del_rep([H|T],[H|T1]):-del_repeat([H|T],H,New),del_rep(New,T1).
+
+% Exercise 15
+rep_el([],_,Count,Count):-!.
+rep_el([H|T],El,Num,Count) :-
+    (H =:= El -> NewNum is Num+1;NewNum is Num),
+    rep_el(T,El,NewNum,Count).
+rep_el(List,El,Count):-rep_el(List,El,0,Count).
