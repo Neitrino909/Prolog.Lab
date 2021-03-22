@@ -76,3 +76,7 @@ u_n(_,[]):-!.
 u_n(X,[H|T]):- X =\= H,u_n(X,T).
 unique_num([H|T]):-u_n(H,T),unique_num((T)).
 unique_num([]):-!.
+
+% Exercise 15
+del_rep([],[]):-!.
+del_rep([H|T],[H|T1]):-del_repeat([H|T],H,New),del_rep(New,T1).
