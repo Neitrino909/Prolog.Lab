@@ -70,3 +70,9 @@ del_by_num([H|T],N,[H|T1]):-N1 is N-1,del_by_num(T,N1,T1).
 del_repeat([],_,[]):-!.
 del_repeat([H|T],El,[H|T1]):-H=\=El,del_repeat(T,El,T1),!.
 del_repeat([_|T],El,T1):-del_repeat(T,El,T1).
+
+% Exercise 14
+u_n(_,[]):-!.
+u_n(X,[H|T]):- X =\= H,u_n(X,T).
+unique_num([H|T]):-u_n(H,T),unique_num((T)).
+unique_num([]):-!.
