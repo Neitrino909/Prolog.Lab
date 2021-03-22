@@ -72,3 +72,9 @@ div_num(X,VSX,N):-
     X mod VSX =:= 0, NewVSX is VSX-1,div_num(X,NewVSX,NewN),N is NewN + 1;
     X mod VSX =\= 0, NewVSX is VSX-1,div_num(X,NewVSX,NewN), N is NewN.
 div_number(X,N):-div_num(X,X,N),!.
+
+%Exercise 13
+iter_sequence(1,1):-!.
+iter_sequence(X,N):-
+    X mod 2 =:= 0, NewX is X div 2,iter_sequence(NewX,NewN),N is NewN+1,!;
+    X mod 2 =\= 0, NewX is X*3 + 1,iter_sequence(NewX,NewN),N is NewN+1,!.
