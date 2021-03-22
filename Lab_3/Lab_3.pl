@@ -18,7 +18,7 @@ fact_down(X,Y):-fact_d(X,Y,1,1).
 
 %Exercise 5
 fib_up(2,1):-!.
-fib_up(X,Y):-X1 is X-1, fib_Up(X1,Y1), Y is Y+Y1.
+fib_up(X,Y):-X1 is X-1, fib_up(X1,Y1), Y is Y+Y1.
 
 %Exercise 6
 fib_d(2,_,NextX,NextX):-!.
