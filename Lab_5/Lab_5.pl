@@ -73,3 +73,14 @@ tree_girlfriends:-Gerlfriends=[_,_,_],
     not(in_list(Gerlfriends,[natasha,green,_])),
 
     write(Gerlfriends),!.
+
+%Exercise 4
+plant:-Artisans=[_,_,_],
+        in_list(Artisans,[slesar,_,0,0,_]),
+	in_list(Artisans,[tokar,_,_,1,_]),
+	in_list(Artisans,[svarschik,_,_,_,_]),
+	in_list(Artisans,[_,borisov,1,_,_]),
+	in_list(Artisans,[_,ivanov,_,_,_]),
+	in_list(Artisans,[_,semenov,_,2,borisov]),
+
+write(Artisans),!.
