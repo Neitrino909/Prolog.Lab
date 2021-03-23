@@ -99,13 +99,13 @@ vessel:-Liquids=[_,_,_,_],
     not(in_list(Liquids,[butylka,woter])),
     not(in_list(Liquids,[butylka,milk])),
 
-    right_next([stakan,_],[_,lemonade],Liquids),
+    right_next([kuvshin,_],[_,lemonade],Liquids),
     right_next([_,lemonade],[_,kvass],Liquids),
 
     not(in_list(Liquids,[banka,imonade])),
     not(in_list(Liquids,[banka,woter])),
 
-    next_to([banka,_],[kuvshin,_],Liquids),
-    next_to([banka,_],[_,milk],Liquids),
+    next_to([stakan,_],[banka,_],Liquids),
+    next_to([stakan,_],[_,milk],Liquids),
 
 write(Liquids),!.
