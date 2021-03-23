@@ -129,3 +129,25 @@ unikum:-Unikums=[_,_,_,_],
      not(in_list(Unikums,[saharov,writer])),
 
      write(Unikums),!.
+
+%Exercise 7
+competition:- Competitions=[_,_,_],
+    in_list(Competitions,[michael,_,basketball,_]),
+    in_list(Competitions,[simon,israeli,_,_]),
+    in_list(Competitions,[richard,_,_,_]),
+    in_list(Competitions,[_,american,_,_]),
+    in_list(Competitions,[_,australian,_,_]),
+    in_list(Competitions,[_,_,tennis,_]),
+    in_list(Competitions,[_,_,cricket,first]),
+    in_list(Competitions,[_,_,_,second]),
+    in_list(Competitions,[_,_,_,third]),
+
+    not(in_list(Competitions,[michael,american,_,_])),
+    not(in_list(Competitions,[simon,_,tennis,_])),
+
+    in_list(Competitions,[Who1,australian,_,_]),
+    in_list(Competitions,[Who2,_,tennis,_]),
+
+write(Competitions),nl,
+write(Who1),write(" is australian"),nl,
+write(Who2),write(" is like tennis"),!.
