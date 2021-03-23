@@ -109,3 +109,23 @@ vessel:-Liquids=[_,_,_,_],
     next_to([stakan,_],[_,milk],Liquids),
 
 write(Liquids),!.
+
+%Exercise 6
+unikum:-Unikums=[_,_,_,_],
+     in_list(Unikums,[voronov,_]),
+     in_list(Unikums,[pavlov,_]),
+     in_list(Unikums,[levicky,_]),
+     in_list(Unikums,[saharov,_]),
+     in_list(Unikums,[_,dance]),
+     in_list(Unikums,[_,painter]),
+     in_list(Unikums,[_,singer]),
+     in_list(Unikums,[_,writer]),
+
+     not(in_list(Unikums,[voronov,singer])),
+     not(in_list(Unikums,[levicky,singer])),
+     not(in_list(Unikums,[pavlov,painter])),
+     not(in_list(Unikums,[pavlov,writer])),
+     not(in_list(Unikums,[voronov,writer])),
+     not(in_list(Unikums,[saharov,writer])),
+
+     write(Unikums),!.
