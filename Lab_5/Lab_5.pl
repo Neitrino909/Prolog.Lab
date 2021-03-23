@@ -84,3 +84,28 @@ plant:-Artisans=[_,_,_],
 	in_list(Artisans,[_,semenov,_,2,borisov]),
 
 write(Artisans),!.
+
+%Exercise 5
+vessel:-Liquids=[_,_,_,_],
+    in_list(Liquids,[butylka,_]),
+    in_list(Liquids,[stakan,_]),
+    in_list(Liquids,[kuvshin,_]),
+    in_list(Liquids,[banka,_]),
+    in_list(Liquids,[_,woter]),
+    in_list(Liquids,[_,milk]),
+    in_list(Liquids,[_,lemonade]),
+    in_list(Liquids,[_,kvass]),
+
+    not(in_list(Liquids,[butylka,woter])),
+    not(in_list(Liquids,[butylka,milk])),
+
+    right_next([stakan,_],[_,lemonade],Liquids),
+    right_next([_,lemonade],[_,kvass],Liquids),
+
+    not(in_list(Liquids,[banka,imonade])),
+    not(in_list(Liquids,[banka,woter])),
+
+    next_to([banka,_],[kuvshin,_],Liquids),
+    next_to([banka,_],[_,milk],Liquids),
+
+write(Liquids),!.
