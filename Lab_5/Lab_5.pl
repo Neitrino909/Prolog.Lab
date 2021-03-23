@@ -1,3 +1,4 @@
+%Exercise 1
 in_list([El|_],El).
 in_list([_|T],El):-in_list(T,El).
 
@@ -38,3 +39,19 @@ pr_Houses:- Houses=[_,_,_,_,_],
 
 		write(Houses),
 		nl,write(WHO1),write("-Water"),nl,write(WHO2),write("-Zebra").
+
+%Exercise 2
+tree_friends:-Friends=[_,_,_],
+    in_list(Friends,[belokurov,_]),
+    in_list(Friends,[ryzhov,_]),
+    in_list(Friends,[chernov,_]),
+    in_list(Friends,[_,blondin]),
+    in_list(Friends,[_,ryzhiy]),
+    in_list(Friends,[_,brunet]),
+
+    not(in_list(Friends,[belokurov,blondin])),
+    not(in_list(Friends,[ryzhov,ryzhiy])),
+    not(in_list(Friends,[chernov,brunet])),
+    not(in_list(Friends,[belokurov,brunet])),
+
+    write(Friends),!.
