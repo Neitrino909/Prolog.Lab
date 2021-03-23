@@ -55,3 +55,21 @@ tree_friends:-Friends=[_,_,_],
     not(in_list(Friends,[belokurov,brunet])),
 
     write(Friends),!.
+
+%Exercise 3
+tree_girlfriends:-Gerlfriends=[_,_,_],
+
+    in_list(Gerlfriends,[_,white,_]),
+    in_list(Gerlfriends,[_,green,_]),
+    in_list(Gerlfriends,[_,blue,_]),
+    in_list(Gerlfriends,[_,_,white]),
+    in_list(Gerlfriends,[_,_,green]),
+    in_list(Gerlfriends,[_,_,blue]),
+    in_list(Gerlfriends,[anya,_,_]),
+    in_list(Gerlfriends,[valya,_,_]),
+    in_list(Gerlfriends,[natasha,_,green]),
+
+    not(in_list(Gerlfriends,[valya,white,white])),
+    not(in_list(Gerlfriends,[natasha,green,_])),
+
+    write(Gerlfriends),!.
