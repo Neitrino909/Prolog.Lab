@@ -178,3 +178,38 @@ string_next([_|[]],_,0):-!.
 string_next([_,H2|T],H2,Count):-	string_next([H2|T],H2,CurCount),
 					Count is CurCount+1,!.
 string_next([_|T],X,Count):-	string_next(T,X,Count).
+
+% task 7.8 - определить, какой символ в строке встречается раньше 'x' или 'w'
+% если какого-то из символов нет, вывести сообщение об этом
+predicate8:-	read_string(L,_),
+
+		X=119,W=120,
+
+		(list_el_numb(L,X,I1),
+		list_el_numb(L,W,I2) ->
+
+		(I1<I2 -> S=X;S=W),
+		write("success: "),put(S),writeln(" occurs earlier!"),nl;
+		
+		writeln("failure: one of characters wasn't found!"),nl).
+
+% task 7.9 - две строки: вывести большую по длине строку
+% столько раз, на сколько символов отличаются строки
+predicate9:-	read_string(L1,Length1),
+		write("length: "),writeln(Length1),
+
+		read_string(L2,Length2),
+		write("length: "),writeln(Length2),
+
+		(Length1>Length2 ->
+		Reps is Length1-Length2,L=L1;
+		Reps is Length2-Length1,L=L2),
+
+		nl,write("quantity of reps: "),writeln(Reps),
+		nl,write_reps(L,Reps),nl.
+
+% выводит строку заданное количество раз
+write_reps(_,0):-!.
+write_reps(L,X):-	CurX is X-1,
+			write_string(L),nl,
+			write_reps(L,CurX).
