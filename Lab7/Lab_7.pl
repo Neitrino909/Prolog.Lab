@@ -1,23 +1,23 @@
 
-% чтение строки и преобразование её в список ASCII кодов символов
+% Г·ГІГҐГ­ГЁГҐ Г±ГІГ°Г®ГЄГЁ ГЁ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГҐ ГҐВё Гў Г±ГЇГЁГ±Г®ГЄ ASCII ГЄГ®Г¤Г®Гў Г±ГЁГ¬ГўГ®Г«Г®Гў
 read_string(10,L,L,N,N):-!.	% 10 - enter
 read_string(X,L,CurL,N,CurN):-	NewN is CurN+1,append(CurL,[X],NewL),
 				get0(Y),read_string(Y,L,NewL,N,NewN).
 read_string(L,N):-	nl,write("input string: "),
 			get0(X),read_string(X,L,[],N,0).
 
-% вывод строки через список ASCII кодов символов
+% ГўГ»ГўГ®Г¤ Г±ГІГ°Г®ГЄГЁ Г·ГҐГ°ГҐГ§ Г±ГЇГЁГ±Г®ГЄ ASCII ГЄГ®Г¤Г®Гў Г±ГЁГ¬ГўГ®Г«Г®Гў
 write_string([]):-!.
 write_string([H|T]):-	put(H),
 			write_string(T).
 
-% вывод строки через список списков ASCII кодов символов
+% ГўГ»ГўГ®Г¤ Г±ГІГ°Г®ГЄГЁ Г·ГҐГ°ГҐГ§ Г±ГЇГЁГ±Г®ГЄ Г±ГЇГЁГ±ГЄГ®Гў ASCII ГЄГ®Г¤Г®Гў Г±ГЁГ¬ГўГ®Г«Г®Гў
 write_strings([]):-!.
 write_strings([H|T]):-	write_string(H),nl,
 			write_strings(T).
 
-% Задание 7.1 - вывести строку три раза через запятую,
-% показать количество символов в ней
+% Г‡Г Г¤Г Г­ГЁГҐ 7.1 - ГўГ»ГўГҐГ±ГІГЁ Г±ГІГ°Г®ГЄГі ГІГ°ГЁ Г°Г Г§Г  Г·ГҐГ°ГҐГ§ Г§Г ГЇГїГІГіГѕ,
+% ГЇГ®ГЄГ Г§Г ГІГј ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГЁГ¬ГўГ®Г«Г®Гў Гў Г­ГҐГ©
 predicate1:-	read_string(L,N),nl,
 
 		writeln("output string (three times): "),
@@ -27,13 +27,13 @@ predicate1:-	read_string(L,N),nl,
 
 		write("string length: "),writeln(N),nl.
 
-% Задание 7.2 - найти количество слов в строке
+% Г‡Г Г¤Г Г­ГЁГҐ 7.2 - Г­Г Г©ГІГЁ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±Г«Г®Гў Гў Г±ГІГ°Г®ГЄГҐ
 predicate2:-	read_string(L,_),
 		count_words(L,Count),
 		write("number of words: "),
 		writeln(Count),nl.
 
-% считает количество слов в строке
+% Г±Г·ГЁГІГ ГҐГІ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±Г«Г®Гў Гў Г±ГІГ°Г®ГЄГҐ
 count_words([],Count,Count):-!.
 count_words(L,Count,CurCount):-	skip_spaces(L,CurL),
 				get_word(CurL,NewL,Word),
@@ -43,11 +43,11 @@ count_words(L,Count,CurCount):-	skip_spaces(L,CurL),
 count_words(_,Count,Count).
 count_words(L,Count):-count_words(L,Count,0).
 
-% убирает пробелы в начале строки
+% ГіГЎГЁГ°Г ГҐГІ ГЇГ°Г®ГЎГҐГ«Г» Гў Г­Г Г·Г Г«ГҐ Г±ГІГ°Г®ГЄГЁ
 skip_spaces([32|T],NewL):-skip_spaces(T,NewL),!.
 skip_spaces(L,L).
 
-% вычленяет слово в начале строки
+% ГўГ»Г·Г«ГҐГ­ГїГҐГІ Г±Г«Г®ГўГ® Гў Г­Г Г·Г Г«ГҐ Г±ГІГ°Г®ГЄГЁ
 get_word([],[],[]):-!.
 get_word(L,NewL,Word):-get_word(L,NewL,Word,[]).
 
@@ -58,4 +58,37 @@ get_word([H|T],NewL,Word,CurWord):-append(CurWord,[H],NewWord),
 
 
 
+% Р—Р°РґР°РЅРёРµ 7.3 - РѕРїСЂРµРґРµР»РёС‚СЊ СЃР°РјРѕРµ РІСЃС‚СЂРµС‡Р°РµРјРѕРµ СЃР»РѕРІРѕ
+predicate3:-	read_string(L,_),
 
+		get_words(L,Words,_),
+		unique_list(Words,UniqueW),
+
+		count_reps(UniqueW,Counts,Words),
+		max_list_down(Counts,MaxC),
+
+		list_el_numb(Counts,MaxC,Index),
+		list_el_numb(UniqueW,MaxW,Index),
+
+		nl,writeln("*if the frequency of occurrence is repeated,*"),
+		writeln("*the first word is output*"),
+
+		nl,write("the most common word: "),write_string(MaxW),nl,
+		write("frequency of occurrance: "),writeln(MaxC),nl.
+
+% СЃРѕР±РёСЂР°РµС‚ СЃРїРёСЃРѕРє РёР· СЃР»РѕРІ
+get_words([],Words,Words,C,C):-!.
+get_words(L,Words,CurWords,C,CurC):-	skip_spaces(L,CurL),
+					get_word(CurL,NewL,Word),
+					Word \=[],
+					NewC is CurC+1,
+					append(CurWords,[Word],NewWords),
+					get_words(NewL,Words,NewWords,C,NewC),!.
+get_words(_,Words,Words,C,C).
+get_words(L,Words,Count):-get_words(L,Words,[],Count,0).
+
+% СЃС‡РёС‚Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РІС…РѕР¶РґРµРЅРёР№ СЌР»РµРјРµРЅС‚РѕРІ РёР· РѕРґРЅРѕРіРѕ СЃРїРёСЃРєР° РІ РґСЂСѓРіРѕР№ СЃРїРёСЃРѕРє
+count_reps([],[],_):-!.
+count_reps([Word|T],Counts,Words):-	count_reps(T,CurCounts,Words),
+					number_times(Words,Count,Word),
+					append([Count],CurCounts,Counts).
