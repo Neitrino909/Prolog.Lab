@@ -121,3 +121,22 @@ build_reps(N,X,L,CurL):-	CurN is N-1,
 				append(CurL,[X],NewL),
 				build_reps(CurN,X,L,NewL).
 build_reps(N,X,L):-build_reps(N,X,L,[]).
+
+% task 7.5 - показать номера символов, совпадающих с последним символом строки
+predicate5:-	read_string(L,Length),
+
+		list_el_numb(L,X,Length),
+		list_matches(L,Matches,X),
+
+		write("matches: "),
+		writeln(Matches),nl.
+
+% собирает список индексов элементов, совпадающих с заданным
+list_matches([],[],0,_):-!.
+list_matches([H|T],Matches,Index,H):-	list_matches(T,CurMatches,CurIndex,H),
+					Index is CurIndex+1,
+					append(CurMatches,[Index],Matches),!.
+list_matches([_|T],Matches,Index,X):-	list_matches(T,Matches,CurIndex,X),
+					Index is CurIndex+1.
+list_matches(List,Matches,X):-	reverse(List,InvList),
+				list_matches(InvList,Matches,_,X).
