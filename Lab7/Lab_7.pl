@@ -140,3 +140,18 @@ list_matches([_|T],Matches,Index,X):-	list_matches(T,Matches,CurIndex,X),
 					Index is CurIndex+1.
 list_matches(List,Matches,X):-	reverse(List,InvList),
 				list_matches(InvList,Matches,_,X).
+
+% task 7.6 - показать третий, шестой, девятый и так далее символы
+predicate6:-	read_string(L,_),
+		string_seq(L,ResL,3),
+		
+		write("sequence: "),
+		write_string(ResL),nl,nl.
+
+% собирает в список элементы, чьи индексы делятся на заданное число
+string_seq([],[],_,0):-!.
+string_seq([H|T],ResL,X,I):-	string_seq(T,CurResL,X,CurI),
+				I is CurI+1,(0 is I mod X ->
+				append(CurResL,[H],ResL);ResL=CurResL).
+string_seq(List,ResL,X):-	reverse(List,InvList),
+				string_seq(InvList,ResL,X,_).
