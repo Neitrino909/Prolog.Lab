@@ -365,3 +365,16 @@ count_digits([H|T],Count):-	count_digits(T,CurCount),
 				(H>=48,H=<57 ->
 				Count is CurCount+1;
 				Count=CurCount).
+
+% task 7.15 - определить, содержит ли строка только символы 'a', 'b', 'c' или нет
+predicate15:-	read_string(L,_),
+		Values=[97,98,99],
+
+		(contains_only(L,Values) ->
+		writeln("success: string contains only 'a','b','c'"),nl;
+		writeln("failure: string contains not only 'a','b','c'"),nl).
+
+% проверяет, cостоит ли один список только из элементов другого списка
+contains_only([],_):-!.
+contains_only([H|T],Values):-	member(Values,H),
+				contains_only(T,Values).
