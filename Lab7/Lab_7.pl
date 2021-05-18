@@ -213,3 +213,32 @@ write_reps(_,0):-!.
 write_reps(L,X):-	CurX is X-1,
 			write_string(L),nl,
 			write_reps(L,CurX).
+% task 7.10 -  если строка начинается на 'abc', то
+% заменить на 'www', иначе - добавить в конец строки 'zzz'
+predicate10:-	read_string(L,_),
+
+		(check_string(L,[97,98,99],[1,2,3]) ->
+		
+		build_list_after(L,CurL,3),
+		append([119,119,119],CurL,ResL);
+
+		append(L,[122,122,122],ResL)),
+
+		write("output modified string: "),
+		write_string(ResL),nl,nl.
+
+% проверяет, находятся ли заданные элементы по заданным индексам
+check_string(_,[],[]).
+check_string(L,[Elem|T1],[Ind|T2]):-	list_el_numb(L,Elem,Ind),
+					check_string(L,T1,T2).
+
+% task 7.11 - если длина строки больше 10, то оставить в строке
+% только первые 6 символов, иначе - дополнить символами 'o' до длины 12
+predicate11:-	read_string(L,Length),
+
+		(Length>10 -> build_list(L,ResL,7);
+		Count is 12-Length,build_reps(Count,111,Reps),
+		append(L,Reps,ResL)),
+
+		write("output modified string: "),
+		write_string(ResL),nl,nl.
