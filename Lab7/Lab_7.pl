@@ -242,3 +242,126 @@ predicate11:-	read_string(L,Length),
 
 		write("output modified string: "),
 		write_string(ResL),nl,nl.
+
+% task 7.12 - разделить строку на фрагменты по три подряд идущих символа:
+% в каждом фрагменте средний символ заменить на случайный символ,
+% не совпадающий ни с одним из символов этого фрагмента
+% показать фрагменты, упорядоченные по алфавиту
+% *главное условие: длина строки должна делиться на три*
+predicate12:-	read_string(L,_),
+
+		split_string(L,CurL,3),		% 3 - длина фрагмента
+		ch_random_lists(CurL,NewL,2),	% 2 - индекс вставки
+		double_sort(NewL,ResL),	
+		
+		nl,writeln("fragments with three characters:"),
+		write_strings(CurL),nl,
+		
+		writeln("fragments with replaced middle character:"),
+		write_strings(NewL),nl,
+
+		writeln("sorted fragments:"),
+		write_strings(ResL),nl.
+
+% сортировка списка
+sort_list([],L,L):-!.
+sort_list(L,ResL,CurResL):-	max_list_down(L,Max),
+				append([Max],CurResL,NewResL),
+				list_el_numb(L,Max,I),
+				list_delete_item(L,CurL,I),
+				sort_list(CurL,ResL,NewResL).
+sort_list(L,ResL):-sort_list(L,ResL,[]).
+
+% сортировка списков в списке
+double_sort([],L,L):-!.
+double_sort([H|T],ResL,CurResL):-	sort_list(H,CurH),
+					append(CurResL,[CurH],NewResL),
+					double_sort(T,ResL,NewResL).
+double_sort(L,ResL):-double_sort(L,ResL,[]).
+
+% разделение строки на фрагменты с заданным количеством элементов
+% *длина строки должна делиться на заданное число*
+split_string([],[],_):-!.
+split_string(L,ResL,Count):-	list_length(L,Length),
+				Length>=Count,
+				CurCount is Count+1,
+				build_list(L,FragL,CurCount),
+				build_list_after(L,CurL,Count),
+				split_string(CurL,CurResL,Count),
+				append([FragL],CurResL,ResL).
+
+% генерация кода символа, не совпадающего ни с одним элементом списка,
+% *диапазон - маленькие буквы латинского алфавита [97,122]*
+character_random(_,_,123):-	!,fail.
+character_random(L,R,CurR):-	not(member(L,CurR)),
+				R=CurR,!.
+character_random(L,R,CurR):-	NewR is CurR+1,
+				character_random(L,R,NewR).				
+character_random(L,R):-character_random(L,R,97).
+
+% замена в списках списка символа на заданной позиции
+% другим рандомным символом, не совпадающим ни с одним
+% из элементов списка
+ch_random_lists([],L,L,_):-!.
+ch_random_lists([H|T],ResL,CurResL,I):-	character_random(H,R),
+					replace_character(H,CurH,R,I),
+					append(CurResL,[CurH],NewResL),
+					ch_random_lists(T,ResL,NewResL,I).
+ch_random_lists(L,ResL,I):-ch_random_lists(L,ResL,[],I). 
+
+% замена символа на заданной позиции
+replace_character(L,ResL,X,I):-	list_delete_item(L,CurL,I),
+				insert_list(CurL,ResL,X,I).
+
+% замена местами двух символов по индексам
+replace_characters(L,ResL,I1,I2):-	list_el_numb(L,X1,I1),
+					list_el_numb(L,X2,I2),
+					
+					replace_character(L,CurL,X1,I2),
+					replace_character(CurL,ResL,X2,I1).
+% вставить элемент на заданный индекс
+insert_list(L,ResL,X,Ind):-	build_list(L,L1,Ind),
+
+				CurInd is Ind-1,
+				build_list_after(L,L2,CurInd),
+
+				append(L1,[X],CurL1),
+				append(CurL1,L2,ResL).
+
+% task 7.13 - заменить каждый четный символ
+% на 'a': если символ не равен 'a' или 'b',
+% на 'c': во всех остальных случаях
+predicate13:-	read_string(L,_),
+		replace_even(L,ResL),
+
+		write("output modified string: "),
+		write_string(ResL),nl,nl.
+
+% выполняет поставленную в task 7.13 задачу
+replace_even([],L,L,_):-!.
+replace_even([H|T],CurL,ResL,I):-	CurI is I+1,
+					1 is CurI mod 2,
+					append(CurL,[H],NewL),
+					replace_even(T,NewL,ResL,CurI),!.
+replace_even([H|T],CurL,ResL,I):-	CurI is I+1,
+					H \= 97,H \= 98,
+					append(CurL,[97],NewL),
+					replace_even(T,NewL,ResL,CurI),!.
+replace_even([_|T],CurL,ResL,I):-	CurI is I+1,
+					append(CurL,[99],NewL),
+					replace_even(T,NewL,ResL,CurI).
+replace_even(L,ResL):-replace_even(L,[],ResL,0).
+
+% task 7.14 - найти количество цифр в строке
+predicate14:-	read_string(L,_),
+		count_digits(L,Count),
+
+		write("number of digits: "),
+		write(Count),nl,nl.
+
+% считает количество цифр в строке
+count_digits([],0):-!.
+count_digits([H|T],Count):-	count_digits(T,CurCount),
+				(H>=48,H=<57 ->
+				Count is CurCount+1;
+				Count=CurCount).
