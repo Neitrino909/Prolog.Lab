@@ -483,3 +483,34 @@ remove_word_by_dig(L,ResL,Word):-	find_index_in(L,InL,Word),
 					find_word_dig(L,InL,CurInL,LenW),
 					reverse(CurInL,NewInL),
 					replace_words(L,ResL,NewInL,[],LenW).				
+
+% task 7.19 - найти количество вхождения 'aba' в строку
+predicate19:-	read_string(L,_),
+
+		W=[97,98,97],
+		find_index_in(L,InL,W),
+		list_length(InL,Count),
+
+		write("number of occurrences 'aba': "),
+		writeln(Count),nl.
+
+% task 7.20 - удалить в строке все лишние пробелы, то есть
+% серии подряд идущих пробелов заменить на одиночные пробелы,
+% крайние пробелы в строке - удалить
+predicate20:-	read_string(L,_),
+		remove_spaces(L,ResL),
+
+		write("output modified string: "),
+		write_string(ResL),nl,nl.
+
+% удаляет все лишние пробелы
+remove_spaces(L,ResL):-	get_words(L,Words,_),
+			build_string(Words,CurResL),
+			skip_spaces(CurResL,ResL).
+
+% вставляет между словами один пробел
+% *остаётся лишний пробел в начале*
+build_string([],[]):-!.
+build_string([H|T],ResL):-	build_string(T,CurResL),
+				append([32],H,CurH),
+				append(CurH,CurResL,ResL).
