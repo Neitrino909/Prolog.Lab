@@ -192,3 +192,99 @@ letters([H|T1],[H|T2]):- H >= 97, H =< 122, letters(T1,T2),!.
 letters([H|T1],[H|T2]):- H >= 1040, H =< 1103, letters(T1,T2),!.
 letters([H|T1],[H|T2]):- (H = 1025; H = 1105), letters(T1,T2),!.
 letters([_|T],List):- letters(T,List).
+
+% 3
+upr3:- read_str(A,_), append(A,[32],B), p3(B,[],Res), write1(Res).
+
+p3([],CurRes,CurRes):-!.
+p3(List,CurRes,Res):-
+	% Выделяем первое слово
+	delete_space(List,List1), get_word(List1,D), delete_fword(List1,List2),
+	(day(D) ->
+		% Выделяем второе слово
+		delete_space(List2,List3), get_word(List3,M), delete_fword(List3,List4),
+		(month(M) ->
+			% Выделяем третье слово
+			delete_space(List4,List5), get_word(List5,Y), delete_fword(List5,List6),
+			(year(Y) -> append(D,[32],L1), append(L1,M,L2),
+			append(L2,[32],L3), append(L3,Y,L4), append(CurRes,[L4],CurL),
+			p3(List6,CurL,Res);
+			p3(List2,CurRes,Res))
+		;p3(List2,CurRes,Res))
+	;p3(List2,CurRes,Res)).
+
+day([H]):- H >= 49, H =< 57, !.
+day([H1,H2]):- H1 = 48, H2 >= 49, H2 =< 57, !.
+day([H1,H2]):- H1 >= 49, H1 =< 51, H2 >= 48, H2 =< 57, !.
+
+month([1103, 1085, 1074, 1072, 1088, 1103]):-!.
+month([1092, 1077, 1074, 1088, 1072, 1083, 1103]):-!.
+month([1084, 1072, 1088, 1090, 1072]):-!.
+month([1072, 1087, 1088, 1077, 1083, 1103]):-!.
+month([1084, 1072, 1103]):-!.
+month([1080, 1102, 1085, 1103]):-!.
+month([1080, 1102, 1083, 1103]):-!.
+month([1072, 1074, 1075, 1091, 1089, 1090, 1072]):-!.
+month([1089, 1077, 1085, 1090, 1103, 1073, 1088, 1103]):-!.
+month([1086, 1082, 1090, 1103, 1073, 1088, 1103]):-!.
+month([1085, 1086, 1103, 1073, 1088, 1103]):-!.
+month([1076, 1077, 1082, 1072, 1073, 1088, 1103]):-!.
+
+year([H1,H2,H3,H4]):- H1 >= 49, H1 =< 57, H2 >= 48, H2 =< 57, H3 >= 48, H3 =< 57,
+	H4 >= 48, H4 =< 57, !.
+
+write1([]):-!.
+write1([H|T]):- write_str(H), nl, write1(T).
+
+% 4_6
+upr4_6:- read_str(A,_), append(A,[32],B), count_5(B,0,C), write("C = "), write(C).
+
+count_5([],I,I):-!.
+count_5(List,I,C):- delete_space(List,List1), get_word(List1,W),
+	delete_fword(List1,List2),
+	(is_number(W) -> (check_5(W) -> I1 is I+1; I1 is I), count_5(List2,I1,C);
+	count_5(List2,I,C)).
+
+is_number([H|T]):- H >= 49, H =< 57, check_number(T).
+
+check_number([]):-!.
+check_number([H|T]):- H >= 48, H =< 57, check_number(T).
+
+check_5([H]):- H > 53,!.
+check_5([_|T]):- T \= [], !.
+
+% 4_12
+upr4_12:- read_str(A,_), cyrillic_char(A,[],B), p4_12(1025,B).
+
+cyrillic_char([],List,List):-!.
+cyrillic_char([H|T],List,Res):- (H >= 1040, H =< 1103; H = 1105; H = 1025),
+	not(in_list(List,H)), append(List,[H],L), cyrillic_char(T,L,Res),!.
+cyrillic_char([_|T],List,Res):- cyrillic_char(T,List,Res).
+
+p4_12(1106,_):-!.
+p4_12(I,List):- (I >= 1040, I =< 1103; I = 1105; I = 1025), not(in_list(List,I)),
+	write_str([I]), I1 is I+1, write(" "), p4_12(I1,List),!.
+p4_12(I,List):- I1 is I+1, p4_12(I1,List).
+
+% 5
+urp5:- see('c:/Users/Neutrino/Desktop/p1_in.txt'), read_list_str(List,LengthList), seen,
+	sort_list(List,LengthList,[],SList), write1(SList).
+
+% Сортировка списка строк по числовому критерию по возрастанию.
+% sort_list(+List,+RuleList,Sorted_list).
+
+sort_list([],_,S,S):-!.
+sort_list(L,R,S,Res):- min_list_down(R,Min), list_el_numb(R,Min,Num),
+	list_el_numb(L,Elem,Num), append(S,[Elem],S1), delete_elem_num(R,Num,R1),
+	delete_elem_num(L,Num,L1), sort_list(L1,R1,S1,Res).
+
+min(X,Y,X):-X<Y,!.
+min(_,Y,Y).
+
+min_list_down([Head|Tail],Min):- min_list_down(Tail,Head,Min).
+min_list_down([],M,M):-!.
+min_list_down([Head|Tail],M,Min):- min(Head,M,Min1), min_list_down(Tail,Min1,Min).
+
+delete_elem_num([_|Tail],0,Tail):- !.
+delete_elem_num([Head|Tail1],Num,[Head|Tail2]):-
+	Num1 is Num-1, delete_elem_num(Tail1,Num1,Tail2).
