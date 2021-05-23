@@ -118,3 +118,77 @@ freq_word(Source_list,Changing_list,Current_word,Num,Freq_word):-
 	delete_fword(Changing_list, List), delete_space(List,Changed_list),
 	(I > Num -> freq_word(Source_list,Changed_list,Cur,I,Freq_word);
 	freq_word(Source_list,Changed_list,Current_word,Num,Freq_word)).
+
+% 1_5
+upr1_5:- see('c:/Users/Neutrino/Desktop/p1_in.txt'), read_list_str1(List), seen,
+	unique_words(List,List,[],R), see('c:/Users/Neutrino/Desktop/p1_in.txt'),
+	read_list_str2(_,R,ResList), seen, tell('c:/Users/Neutrino/Desktop/p1_out.txt'),
+	write_list_str(ResList),told.
+
+write_list_str([]):-!.
+write_list_str([H|T]):-write_str(H),nl,write_list_str(T).
+
+read_list_str2(_,UniqList,ResList):- read_str(A,_,Flag), append(A,[32],L),
+	(check_unique(L,UniqList) -> read_list_str2([A],UniqList,ResList,Flag);
+	read_list_str2([],UniqList,ResList,Flag)).
+
+read_list_str2(List,_,List,1):-!.
+read_list_str2(Cur_list,UniqList,List,0):- read_str(A,_,Flag), append(A,[32],L),
+	(check_unique(L,UniqList) -> append(Cur_list,[A],C_l); append(Cur_list,[],C_l)),
+	read_list_str2(C_l,UniqList,List,Flag).
+
+% Выделяем из списка List все слова, встречающиеся ровно 1 раз.
+unique_words(_,[],L,L):-!.
+unique_words(List,CurList,L,R):- delete_space(CurList,List1), get_word(List1, Word),
+	delete_fword(List1,L2), num_word(List,Word,0,Number),
+	(Number = 1 -> append(L,[Word],L1); L1 = L), unique_words(List,L2,L1,R).
+
+% Проверка: состоит ли строка только из уникальных слов.
+check_unique([],_):-!.
+check_unique(List,UniqList):- delete_space(List,List1), get_word(List1,Word),
+	in_list(UniqList,Word), delete_fword(List1,L), check_unique(L,UniqList).
+
+% 2_6
+upr2_6:- read_str(List,_,_), append([32],List,L), append(L,[32],L1), count_words(L1,0,C),
+	p2_6(L1,C,1,[],ResList), write_str(ResList).
+
+p2_6([],_,_,ResList,ResList):-!.
+p2_6(List,C,I,ResList,ResL):- I > 1, I < C, delete_space(List,List1),
+	get_word(List1, Word), delete_fword(List1,List2), length(Word,L), Len is L-1,
+	shuffle_list(Word,Len,Len,[],[],Res), append(ResList,Res,L1), append(L1,[32],L2),
+	I1 is I+1, p2_6(List2,C,I1,L2,ResL),!.
+p2_6(List,C,I,ResList,ResL):- delete_space(List,List1), get_word(List1, Word),
+	delete_fword(List1,List2), append(ResList,Word,L1), append(L1,[32],L2),
+	I1 is I+1, p2_6(List2,C,I1,L2,ResL),!.
+
+shuffle_list(_,_,-1,_,ResList,ResList):-!.
+shuffle_list(List,Length,I,NumList,ResList,ResL):- random_between(0,Length,R),
+	not(in_list(NumList,R)), I1 is I-1,  list_el_numb(List,Elem,R),
+	append(ResList,[Elem],Res), append(NumList,[R],NumL),
+	shuffle_list(List,Length,I1,NumL,Res,ResL),!.
+
+shuffle_list(List,Length,I,NumList,ResList,ResL):-
+	shuffle_list(List,Length,I,NumList,ResList,ResL).
+
+list_el_numb(List,Elem,Number):- list_el_numb(List,Elem,0,Number).
+list_el_numb([Head|_],Head,Number,Number):-!.
+list_el_numb([_|Tail],Elem,I,Number):- I1 is I+1, list_el_numb(Tail,Elem,I1,Number).
+
+% В начале строки должен быть пробел.
+count_words([],K,K):-!.
+count_words([32,H2|T],I,K):- H2\=32, H2\=10, I1 is I+1, count_words(T,I1,K),!.
+count_words([_|T],I,K):- count_words(T,I,K),!.
+
+% 2_12
+upr2_12:- read_str(A,_), digits(A,D), letters(A,L), append(D,L,List), write_str(List).
+
+digits([],[]):-!.
+digits([H|T1],[H|T2]):- H >= 48, H =< 57, digits(T1,T2),!.
+digits([_|T],List):- digits(T,List).
+
+letters([],[]):-!.
+letters([H|T1],[H|T2]):- H >= 65, H =< 90, letters(T1,T2),!.
+letters([H|T1],[H|T2]):- H >= 97, H =< 122, letters(T1,T2),!.
+letters([H|T1],[H|T2]):- H >= 1040, H =< 1103, letters(T1,T2),!.
+letters([H|T1],[H|T2]):- (H = 1025; H = 1105), letters(T1,T2),!.
+letters([_|T],List):- letters(T,List).
